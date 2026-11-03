@@ -1,7 +1,7 @@
-import Image from "next/image";
+import HeroCarousel from "@/components/home/Hero";
 
 export default function Home() {
   return (<div>
-    Hello
+    <HeroCarousel/>
   </div>);
 }
