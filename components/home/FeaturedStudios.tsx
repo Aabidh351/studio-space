@@ -42,7 +42,7 @@ export default async function FeaturedStudios() {
               Curated spaces
             </p>
 
-            <h2 className="font-[var(--font-cormorant)] text-4xl font-semibold text-[#292b27] md:text-5xl">
+            <h2 className="text-4xl font-semibold text-[#292b27] md:text-5xl">
               Featured Studios
             </h2>
 
@@ -76,6 +76,7 @@ export default async function FeaturedStudios() {
                     src={studio.imageUrl}
                     alt={studio.title}
                     fill
+                    loading="eager"
                     unoptimized
                     className="object-cover transition duration-500 group-hover:scale-105"
                   />
