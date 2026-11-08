@@ -12,6 +12,7 @@ export default function HostSupport() {
             alt="Creative workspace with a welcoming atmosphere"
             fill
             unoptimized
+            loading="eager"
             className="object-cover"
           />
         </div>
