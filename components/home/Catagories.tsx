@@ -52,7 +52,7 @@ export default async function Categories() {
             href="/studios"
             className="text-sm font-semibold text-[#344638] underline underline-offset-4"
           >
-            Explore all studios
+            Browse studios by catagory
           </Link>
         </div>
 

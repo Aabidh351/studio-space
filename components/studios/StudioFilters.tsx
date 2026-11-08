@@ -60,7 +60,6 @@ export default function StudioFilters({ studios }: Props) {
 
   return (
     <>
-      {/* Search */}
       <input
         type="text"
         placeholder="Search by studio name, location or category..."
@@ -69,7 +68,6 @@ export default function StudioFilters({ studios }: Props) {
         className="mb-6 w-full border border-[#e4e1d7] bg-[#fdfcf9] px-5 py-3 text-sm outline-none focus:border-[#71836d]"
       />
 
-      {/* Filters and Sorting */}
       <div className="mb-8 flex flex-col justify-between gap-5 sm:flex-row sm:items-center">
         <div className="flex flex-wrap gap-2">
           {categories.map((item) => (
@@ -139,6 +137,7 @@ export default function StudioFilters({ studios }: Props) {
                   src={studio.imageUrl}
                   alt={studio.title}
                   fill
+                  loading="eager"
                   unoptimized
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
