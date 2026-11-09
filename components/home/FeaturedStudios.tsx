@@ -87,7 +87,7 @@ export default async function FeaturedStudios() {
                     {studio.category}
                   </p>
 
-                  <h3 className="font-[var(--font-cormorant)] text-2xl font-semibold text-[#292b27]">
+                  <h3 className=" text-2xl font-semibold text-[#292b27]">
                     {studio.title}
                   </h3>
 

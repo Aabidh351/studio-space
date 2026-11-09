@@ -56,7 +56,6 @@ export default function HeroCarousel() {
     <section className="relative mx-auto w-full max-w-[1600px] px-4 pt-5 md:px-8 md:pt-8">
       <div className="relative min-h-135 overflow-hidden rounded-2xl bg-[#292b27] md:min-h-155">
 
-        {/* Background slides */}
         {slides.map((slide, index) => (
           <div
             key={slide.label}
@@ -76,7 +75,6 @@ export default function HeroCarousel() {
           </div>
         ))}
 
-        {/* Dark overlay */}
         <div className="absolute inset-0 bg-linear-to-r from-black/75 via-black/45 to-black/10" />
 
         {/* Content */}
@@ -113,7 +111,6 @@ export default function HeroCarousel() {
           </div>
         </div>
 
-        {/* Previous / Next buttons */}
         <div className="absolute bottom-7 right-7 z-20 flex items-center gap-3 md:bottom-10 md:right-12">
           <button
             type="button"
@@ -134,7 +131,6 @@ export default function HeroCarousel() {
           </button>
         </div>
 
-        {/* Slide indicators */}
         <div className="absolute bottom-10 left-7 z-20 flex gap-2 md:left-16 lg:left-24">
           {slides.map((slide, index) => (
             <button
