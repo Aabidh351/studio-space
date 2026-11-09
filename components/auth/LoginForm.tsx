@@ -11,6 +11,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
+function GoogleIcon() {
+  return (
+    <svg viewBox="0 0 48 48" className="h-5 w-5" aria-hidden="true">
+      <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5Z" />
+      <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.91c-.58 2.96-2.26 5.48-4.72 7.18l7.28 5.65c4.25-3.93 6.51-9.73 6.51-17.3Z" />
+      <path fill="#FBBC05" d="M10.53 28.59A14.4 14.4 0 0 1 9.75 24c0-1.59.27-3.13.76-4.59l-7.98-6.19A23.9 23.9 0 0 0 0 24c0 3.87.93 7.53 2.56 10.78l7.97-6.19Z" />
+      <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.9-5.78l-7.28-5.65c-2.02 1.35-4.6 2.15-8.62 2.15-6.26 0-11.57-4.22-13.46-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48Z" />
+    </svg>
+  );
+}
+
 export default function LoginForm({
   redirectTo = "/",
 }: {
@@ -23,6 +34,7 @@ export default function LoginForm({
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -51,6 +63,7 @@ export default function LoginForm({
 
   const handleGoogleLogin = async () => {
     setError("");
+    setGoogleLoading(true);
 
     try {
       await authClient.signIn.social({
@@ -59,6 +72,7 @@ export default function LoginForm({
       });
     } catch {
       setError("Google login failed. Please try again.");
+      setGoogleLoading(false);
     }
   };
 
@@ -125,13 +139,11 @@ export default function LoginForm({
           </div>
         </div>
 
-        {error && (
-          <p className="text-sm text-red-600">{error}</p>
-        )}
+        {error && <p className="text-sm text-red-600">{error}</p>}
 
         <Button
           type="submit"
-          disabled={loading}
+          disabled={loading || googleLoading}
           className="w-full bg-[#344638] text-white hover:bg-[#435947]"
         >
           {loading ? "Logging in..." : "Log In"}
@@ -148,9 +160,11 @@ export default function LoginForm({
         type="button"
         variant="outline"
         onClick={handleGoogleLogin}
+        disabled={loading || googleLoading}
         className="w-full border-[#e4e1d7] text-[#292b27]"
       >
-        Continue with Google
+        <GoogleIcon />
+        {googleLoading ? "Connecting..." : "Continue with Google"}
       </Button>
 
       <p className="mt-6 text-center text-sm text-[#74766d]">
