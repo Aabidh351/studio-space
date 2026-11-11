@@ -35,3 +35,34 @@ export async function DELETE(request: Request, { params }: Props) {
     );
   }
 }
+
+export async function PUT(request: Request, { params }: Props) {
+  try {
+    const { id } = await params;
+    const body = await request.json();
+
+    const response = await fetch(
+      `${process.env.API_URL}/api/studios/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      }
+    );
+
+    const data = await response.json();
+
+    return NextResponse.json(data, {
+      status: response.status,
+    });
+  } catch (error) {
+    console.error("Update studio error:", error);
+
+    return NextResponse.json(
+      { message: "Failed to update studio." },
+      { status: 500 }
+    );
+  }
+}
