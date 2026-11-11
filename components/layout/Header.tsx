@@ -84,15 +84,25 @@ export default function Header() {
 
       <DropdownMenuSeparator />
 
-      <DropdownMenuItem onSelect={() => router.push("/my-listings")}>
-        <LayoutDashboard className="mr-2 h-4 w-4" />
-        My Listings
-      </DropdownMenuItem>
+      <DropdownMenuItem>
+  <Link
+    href="/my-listings"
+    className="flex w-full items-center"
+  >
+    <LayoutDashboard className="mr-2 h-4 w-4" />
+    My Listings
+  </Link>
+</DropdownMenuItem>
 
-      <DropdownMenuItem onSelect={() => router.push("/my-bookings")}>
-        <CalendarDays className="mr-2 h-4 w-4" />
-        My Bookings
-      </DropdownMenuItem>
+      <DropdownMenuItem>
+  <Link
+    href="/my-bookings"
+    className="flex w-full items-center"
+  >
+    <CalendarDays className="mr-2 h-4 w-4" />
+    My Bookings
+  </Link>
+</DropdownMenuItem>
 
       <DropdownMenuSeparator />
 
@@ -118,7 +128,7 @@ export default function Header() {
           <span className="mb-1 h-2 w-2 rounded-full bg-[#b66b50]" />
         </Link>
 
-        {/* Desktop Navigation */}
+        
         <div className="hidden items-center gap-9 md:flex">
           {navLinks.map((link) => (
             <Link

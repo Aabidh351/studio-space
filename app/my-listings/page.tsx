@@ -1,8 +1,10 @@
+
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 
 import { auth } from "@/lib/auth";
+import DeleteStudioButton from "@/components/studios/DeleteStudioButton";
 
 type Studio = {
   _id: string;
@@ -71,7 +73,7 @@ export default async function MyListingsPage() {
             </h2>
 
             <p className="mt-2 text-sm text-[#74766d]">
-              You haven't listed any studios yet.
+              You haven&apos;t listed any studios yet.
             </p>
 
             <Link
@@ -107,13 +109,18 @@ export default async function MyListingsPage() {
                   </span>
                 </p>
 
-                <div className="mt-6 border-t border-[#e4e1d7] pt-4">
+                <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-[#e4e1d7] pt-4">
                   <Link
                     href={`/studios/${studio._id}`}
                     className="text-sm font-semibold text-[#344638] hover:text-[#b66b50]"
                   >
                     View Studio →
                   </Link>
+
+                  <DeleteStudioButton
+                    studioId={studio._id}
+                    ownerEmail={session.user.email}
+                  />
                 </div>
               </div>
             ))}
