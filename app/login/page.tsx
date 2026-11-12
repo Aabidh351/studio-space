@@ -13,7 +13,7 @@ export default async function LoginPage({ searchParams }: Props) {
       : "/";
 
   return (
-    <main className="flex min-h-[80vh] items-center justify-center bg-[#f7f5ef] px-6 py-16">
+    <main className="flex min-h-[80vh] items-center justify-center bg-background px-6 py-16">
       <LoginForm redirectTo={redirectTo} />
     </main>
   );

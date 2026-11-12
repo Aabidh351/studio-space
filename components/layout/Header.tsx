@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   LogOut,
   CalendarDays,
@@ -37,57 +37,64 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
 
-
-
   const router = useRouter();
+  const pathname = usePathname();
+
   const { data: session, isPending } = authClient.useSession();
   const { theme, setTheme } = useTheme();
 
   const user = session?.user;
 
+  const isLinkActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    if (href.includes("#")) return false;
+
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
+
   const themeToggle = (
-  <button
-    type="button"
-    onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-    aria-label="Toggle theme"
-    title="Toggle theme"
-    className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background text-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
-  >
-    <Moon className="hidden h-5 w-5 dark:block" />
-    <Sun className="block h-5 w-5 dark:hidden" />
-  </button>
-);
+    <button
+      type="button"
+      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      aria-label="Toggle theme"
+      title="Toggle theme"
+      className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background text-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+    >
+      <Moon className="hidden h-5 w-5 dark:block" />
+      <Sun className="block h-5 w-5 dark:hidden" />
+    </button>
+  );
 
   const handleLogout = async () => {
-  try {
-    setLoggingOut(true);
+    try {
+      setLoggingOut(true);
 
-    const { error } = await authClient.signOut();
+      const { error } = await authClient.signOut();
 
-    if (error) {
+      if (error) {
+        toast.error("Logout Failed", {
+          description: error.message || "Please try again.",
+        });
+        return;
+      }
+
+      toast.success("Logged out successfully!");
+
+      router.push("/login");
+      router.refresh();
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Something went wrong while logging out.";
+
       toast.error("Logout Failed", {
-        description: error.message || "Please try again.",
+        description: message,
       });
-      return;
+    } finally {
+      setLoggingOut(false);
     }
-
-    toast.success("Logged out successfully!");
-
-    router.push("/login");
-    router.refresh();
-  } catch (error) {
-    const message =
-      error instanceof Error
-        ? error.message
-        : "Something went wrong while logging out.";
-
-    toast.error("Logout Failed", {
-      description: message,
-    });
-  } finally {
-    setLoggingOut(false);
-  }
-};
+  };
 
   const profilePicture = (
     <Avatar className="h-10 w-10 border border-border">
@@ -161,36 +168,46 @@ export default function Header() {
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-md">
       <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 md:px-8">
         <Link href="/" className="flex items-center gap-2">
-  <Image
-    src="/logo.png"
-    alt="StudioSpace logo"
-    width={40}
-    height={40}
-    loading="eager"
-    priority
-    className="h-10 w-10 object-contain"
-  />
+          <Image
+            src="/logo.png"
+            alt="StudioSpace logo"
+            width={40}
+            height={40}
+            loading="eager"
+            priority
+            className="h-10 w-10 object-contain"
+          />
 
-  <span className="font-heading text-3xl font-semibold tracking-tight text-primary">
-    StudioSpace
-  </span>
+          <span className="font-heading text-3xl font-semibold tracking-tight text-primary">
+            StudioSpace
+          </span>
 
-  <span className="mb-1 h-2 w-2 rounded-full bg-[#b66b50]" />
-</Link>
+          <span className="mb-1 h-2 w-2 rounded-full bg-[#b66b50]" />
+        </Link>
 
         <div className="hidden items-center gap-9 md:flex">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
+          {navLinks.map((link) => {
+            const active = isLinkActive(link.href);
 
-        
+            return (
+              <Link
+                key={link.name}
+                href={link.href}
+                aria-current={active ? "page" : undefined}
+                className={`text-sm font-medium transition-colors ${
+                  active
+                    ? "text-primary"
+                    : "text-muted-foreground hover:text-primary"
+                }`}
+              >
+                {link.name}
+                {active && (
+                  <span className="mt-1 block h-0.5 rounded-full bg-primary" />
+                )}
+              </Link>
+            );
+          })}
+        </div>
 
         <div className="hidden items-center gap-4 md:flex">
           {themeToggle}
@@ -234,9 +251,7 @@ export default function Header() {
           {themeToggle}
 
           {isPending ? (
-            <span className="text-xs text-muted-foreground">
-              Loading...
-            </span>
+            <span className="text-xs text-muted-foreground">Loading...</span>
           ) : user ? (
             profileDropdown
           ) : (
@@ -285,16 +300,28 @@ export default function Header() {
       {menuOpen && (
         <div className="border-t border-border bg-background px-5 py-6 md:hidden">
           <div className="flex flex-col gap-5">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                onClick={() => setMenuOpen(false)}
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-              >
-                {link.name}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const active = isLinkActive(link.href);
+
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  aria-current={active ? "page" : undefined}
+                  className={`w-fit text-sm font-medium transition-colors ${
+                    active
+                      ? "text-primary"
+                      : "text-muted-foreground hover:text-primary"
+                  }`}
+                >
+                  {link.name}
+                  {active && (
+                    <span className="mt-1 block h-0.5 rounded-full bg-primary" />
+                  )}
+                </Link>
+              );
+            })}
 
             <Link
               href="/add-studio"
