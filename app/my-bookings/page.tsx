@@ -1,3 +1,4 @@
+
 import CancelBookingButton from "@/components/bookings/CancelBookingButton";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -17,7 +18,7 @@ type Booking = {
   hourlyRate: number;
   securityDeposit: number;
   totalAmount: number;
-  status: "Pending" | "Confirmed" | "Cancelled";
+  status: "Pending" | "Confirmed" | "Cancelled" | "Completed";
   createdAt: string;
 };
 
@@ -98,22 +99,27 @@ export default async function MyBookingsPage() {
                     </p>
                   </div>
 
-                  <span
-                    className={`rounded-full px-4 py-2 text-xs font-semibold ${
-                      booking.status === "Confirmed"
-                        ? "bg-green-100 text-green-700"
-                        : booking.status === "Cancelled"
-                          ? "bg-red-100 text-red-600"
-                          : "bg-amber-100 text-amber-700"
-                    }`}
-                  >
-                    {booking.status}
-                  </span>
-                  {booking.status === "Pending" && (
-                    <CancelBookingButton
-                    bookingId={booking._id}
-                    customerEmail={session.user.email} />
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span
+                      className={`rounded-full px-4 py-2 text-xs font-semibold ${
+                        booking.status === "Confirmed" ||
+                        booking.status === "Completed"
+                          ? "bg-green-100 text-green-700"
+                          : booking.status === "Cancelled"
+                            ? "bg-red-100 text-red-600"
+                            : "bg-amber-100 text-amber-700"
+                      }`}
+                    >
+                      {booking.status}
+                    </span>
+
+                    {booking.status === "Pending" && (
+                      <CancelBookingButton
+                        bookingId={booking._id}
+                        customerEmail={session.user.email}
+                      />
                     )}
+                  </div>
                 </div>
 
                 <div className="mt-6 grid gap-4 border-t border-[#e4e1d7] pt-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -136,8 +142,7 @@ export default async function MyBookingsPage() {
                     <div>
                       <p className="text-xs text-[#74766d]">Time</p>
                       <p className="mt-1 text-sm font-medium text-[#292b27]">
-                        {booking.startTime} – {booking.endTime}
-                        {" "}({booking.duration} hours)
+                        {booking.startTime} – {booking.endTime} ({booking.duration} hours)
                       </p>
                     </div>
                   </div>
