@@ -19,7 +19,7 @@ type Booking = {
   hourlyRate: number;
   securityDeposit: number;
   totalAmount: number;
-  status: "Pending" | "Confirmed" | "Cancelled";
+  status: "Pending" | "Confirmed" | "Cancelled" | "Completed";
   createdAt: string;
 };
 
@@ -173,12 +173,14 @@ export default async function BookingRequestsPage() {
                     className="text-sm font-semibold text-[#344638] transition hover:text-[#b66b50]" >
                         View Studio →
                         </Link>
-                        {booking.status === "Pending" && (
-                            <BookingActions 
+                        
+                            <BookingActions
                             bookingId={booking._id}
-                            ownerEmail={session.user.email} />
-                            )}
-                            </div>
+                            ownerEmail={session.user.email}
+                            status={booking.status}
+                        />
+                        
+                    </div>
               </div>
             ))}
           </div>

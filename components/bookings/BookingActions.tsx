@@ -8,14 +8,26 @@ import { toast } from "sonner";
 type Props = {
   bookingId: string;
   ownerEmail: string;
+  status: string;
 };
 
-export default function BookingActions({ bookingId, ownerEmail }: Props) {
+export default function BookingActions({
+  bookingId,
+  ownerEmail,
+  status,
+}: Props) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const updateStatus = async (status: "Confirmed" | "Cancelled") => {
-    const action = status === "Confirmed" ? "confirm" : "reject";
+  const updateStatus = async (
+    newStatus: "Confirmed" | "Cancelled" | "Completed"
+  ) => {
+    const action =
+      newStatus === "Confirmed"
+        ? "confirm"
+        : newStatus === "Cancelled"
+          ? "reject"
+          : "mark as completed";
 
     if (!window.confirm(`Are you sure you want to ${action} this booking?`)) {
       return;
@@ -31,7 +43,7 @@ export default function BookingActions({ bookingId, ownerEmail }: Props) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ ownerEmail, status }),
+          body: JSON.stringify({ ownerEmail, status: newStatus }),
         }
       );
 
@@ -54,23 +66,38 @@ export default function BookingActions({ bookingId, ownerEmail }: Props) {
 
   return (
     <div className="flex flex-wrap gap-3">
-      <button
-        type="button"
-        onClick={() => updateStatus("Confirmed")}
-        disabled={loading}
-        className="rounded-full bg-[#344638] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#435947] disabled:opacity-50"
-      >
-        {loading ? "Please wait..." : "Confirm"}
-      </button>
+      {status === "Pending" && (
+        <>
+          <button
+            type="button"
+            onClick={() => updateStatus("Confirmed")}
+            disabled={loading}
+            className="rounded-full bg-[#344638] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#435947] disabled:opacity-50"
+          >
+            {loading ? "Please wait..." : "Confirm"}
+          </button>
 
-      <button
-        type="button"
-        onClick={() => updateStatus("Cancelled")}
-        disabled={loading}
-        className="rounded-full border border-red-200 px-5 py-2.5 text-sm font-semibold text-red-600 transition hover:bg-red-50 disabled:opacity-50"
-      >
-        Reject
-      </button>
+          <button
+            type="button"
+            onClick={() => updateStatus("Cancelled")}
+            disabled={loading}
+            className="rounded-full border border-red-200 px-5 py-2.5 text-sm font-semibold text-red-600 transition hover:bg-red-50 disabled:opacity-50"
+          >
+            Reject
+          </button>
+        </>
+      )}
+
+      {status === "Confirmed" && (
+        <button
+          type="button"
+          onClick={() => updateStatus("Completed")}
+          disabled={loading}
+          className="rounded-full bg-[#344638] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#435947] disabled:opacity-50"
+        >
+          {loading ? "Please wait..." : "Mark as Completed"}
+        </button>
+      )}
     </div>
   );
 }
