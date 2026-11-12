@@ -1,6 +1,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import BookingForm from "@/components/studios/BookingForm";
 
 type Studio = {
   _id: string;
@@ -111,7 +112,6 @@ export default async function StudioDetails({ id }: { id: string }) {
               </p>
             </div>
 
-            {/* Amenities */}
             <div>
               <h2 className="mb-5 font-heading text-2xl font-semibold text-[#292b27]">
                 Amenities & Facilities
@@ -177,12 +177,14 @@ export default async function StudioDetails({ id }: { id: string }) {
                 </div>
               </div>
 
-              <Link
-                href={`/login?redirect=/studios/${studio._id}`}
-                className="block w-full bg-[#344638] px-6 py-4 text-center text-sm font-semibold text-white transition hover:bg-[#435947]"
-              >
-                Book This Studio
-              </Link>
+              <BookingForm
+              studio={{
+                _id: studio._id,
+                title: studio.title,
+                hourlyRate: studio.hourlyRate,
+                securityDeposit: studio.securityDeposit,
+                ownerEmail: studio.ownerEmail,
+                }} />
 
               <p className="mt-4 text-center text-xs leading-5 text-[#74766d]">
                 Booking requests are subject to host confirmation.
