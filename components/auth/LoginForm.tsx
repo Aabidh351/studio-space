@@ -103,17 +103,17 @@ export default function LoginForm({
 };
 
   return (
-    <div className="w-full max-w-md border border-[#e4e1d7] bg-[#fdfcf9] p-8">
+    <div className="w-full max-w-md border border-border bg-card p-8">
       <div className="mb-8 text-center">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#71836d]">
           Welcome Back
         </p>
 
-        <h1 className="mt-3 font-heading text-4xl font-medium text-[#292b27]">
+        <h1 className="mt-3 font-heading text-4xl font-medium text-foreground">
           Log In
         </h1>
 
-        <p className="mt-2 text-sm text-[#74766d]">
+        <p className="mt-2 text-sm text-muted-foreground">
           Sign in to continue exploring creative spaces.
         </p>
       </div>
@@ -137,7 +137,7 @@ export default function LoginForm({
 
             <Link
               href="/forgot-password"
-              className="text-xs font-medium text-[#344638] hover:underline"
+              className="text-xs font-medium text-primary hover:underline"
             >
               Forgot password?
             </Link>
@@ -157,7 +157,7 @@ export default function LoginForm({
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-[#74766d] hover:text-[#344638]"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary"
               aria-label={showPassword ? "Hide password" : "Show password"}
             >
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -170,16 +170,16 @@ export default function LoginForm({
         <Button
           type="submit"
           disabled={loading || googleLoading}
-          className="w-full bg-[#344638] text-white hover:bg-[#435947]"
+          className="w-full bg-primary text-primary-foreground hover:bg-[#435947]"
         >
           {loading ? "Logging in..." : "Log In"}
         </Button>
       </form>
 
       <div className="my-6 flex items-center gap-4">
-        <div className="h-px flex-1 bg-[#e4e1d7]" />
-        <span className="text-xs text-[#74766d]">OR</span>
-        <div className="h-px flex-1 bg-[#e4e1d7]" />
+        <div className="h-px flex-1 bg-border" />
+        <span className="text-xs text-muted-foreground">OR</span>
+        <div className="h-px flex-1 bg-border" />
       </div>
 
       <Button
@@ -187,17 +187,17 @@ export default function LoginForm({
         variant="outline"
         onClick={handleGoogleLogin}
         disabled={loading || googleLoading}
-        className="w-full border-[#e4e1d7] text-[#292b27]"
+        className="w-full border-border text-foreground"
       >
         <GoogleIcon />
         {googleLoading ? "Connecting..." : "Continue with Google"}
       </Button>
 
-      <p className="mt-6 text-center text-sm text-[#74766d]">
+      <p className="mt-6 text-center text-sm text-muted-foreground">
         Don&apos;t have an account?{" "}
         <Link
           href="/register"
-          className="font-semibold text-[#344638] hover:underline"
+          className="font-semibold text-primary hover:underline"
         >
           Create Account
         </Link>
