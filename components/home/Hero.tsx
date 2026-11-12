@@ -78,7 +78,6 @@ export default function HeroCarousel() {
 
         <div className="absolute inset-0 bg-linear-to-r from-black/75 via-black/45 to-black/10" />
 
-        {/* Content */}
         <div className="relative z-10 flex min-h-135 items-center px-7 py-16 md:min-h-155 md:px-16 lg:px-24">
           <div className="max-w-2xl text-white">
 
@@ -86,11 +85,11 @@ export default function HeroCarousel() {
               {slides[activeSlide].label}
             </p>
 
-            <h1 className="font-heading text-5xl font-medium leading-[1.08] md:text-6xl lg:text-7xl">
+            <h1 className="font-heading text-3xl sm:text-5xl font-medium leading-[1.08] md:text-6xl lg:text-7xl">
               {slides[activeSlide].title}
             </h1>
 
-            <p className="mt-6 max-w-lg text-sm leading-7 text-white/80 md:text-base md:leading-8">
+            <p className="mt-3 sm:mt-4 md:mt-6 max-w-lg text-sm leading-5 sm:leading-7 text-white/80 md:text-base md:leading-8">
               {slides[activeSlide].description}
             </p>
 

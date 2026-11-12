@@ -178,7 +178,7 @@ export default function Header() {
             className="h-10 w-10 object-contain"
           />
 
-          <span className="font-heading text-3xl font-semibold tracking-tight text-primary">
+          <span className="font-heading text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight text-primary">
             StudioSpace
           </span>
 

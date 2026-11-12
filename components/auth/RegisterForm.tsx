@@ -147,7 +147,7 @@ export default function RegisterForm() {
           Join StudioSpace
         </p>
 
-        <h1 className="mt-3 font-heading text-4xl font-medium text-foreground">
+        <h1 className="mt-3 font-heading text-2xl sm:text-4xl font-medium text-foreground">
           Create Account
         </h1>
 
