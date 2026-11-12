@@ -1,4 +1,4 @@
-
+import CancelBookingButton from "@/components/bookings/CancelBookingButton";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
@@ -109,6 +109,11 @@ export default async function MyBookingsPage() {
                   >
                     {booking.status}
                   </span>
+                  {booking.status === "Pending" && (
+                    <CancelBookingButton
+                    bookingId={booking._id}
+                    customerEmail={session.user.email} />
+                    )}
                 </div>
 
                 <div className="mt-6 grid gap-4 border-t border-[#e4e1d7] pt-5 sm:grid-cols-2 lg:grid-cols-3">
