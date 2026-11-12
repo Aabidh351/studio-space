@@ -97,7 +97,7 @@ export default function HeroCarousel() {
             <div className="mt-9 flex flex-wrap gap-4">
               <Link
                 href="/studios"
-                className="rounded-full bg-[#f7f5ef] px-7 py-3.5 text-sm font-semibold text-[#344638] transition-colors hover:bg-[#e9e8df]"
+                className="rounded-full bg-background px-7 py-3.5 text-sm font-semibold text-primary transition-colors hover:bg-[#e9e8df] hover:text-background"
               >
                 Explore Studios
               </Link>

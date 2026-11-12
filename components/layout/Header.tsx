@@ -23,6 +23,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Image from "next/image";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -150,11 +151,22 @@ export default function Header() {
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-md">
       <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 md:px-8">
         <Link href="/" className="flex items-center gap-2">
-          <span className="font-heading text-3xl font-semibold tracking-tight text-primary">
-            StudioSpace
-          </span>
-          <span className="mb-1 h-2 w-2 rounded-full bg-[#b66b50]" />
-        </Link>
+  <Image
+    src="/logo.png"
+    alt="StudioSpace logo"
+    width={40}
+    height={40}
+    loading="eager"
+    priority
+    className="h-10 w-10 object-contain"
+  />
+
+  <span className="font-heading text-3xl font-semibold tracking-tight text-primary">
+    StudioSpace
+  </span>
+
+  <span className="mb-1 h-2 w-2 rounded-full bg-[#b66b50]" />
+</Link>
 
         <div className="hidden items-center gap-9 md:flex">
           {navLinks.map((link) => (
