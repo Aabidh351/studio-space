@@ -5,6 +5,7 @@ import HostSupport from "@/components/home/HostSupport";
 import HowItWorks from "@/components/home/HowItWorks";
 import { Suspense } from "react";
 
+
 export default function Home() {
   return (<div>
     <HeroCarousel/>

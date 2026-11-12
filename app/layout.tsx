@@ -6,6 +6,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import ThemeProvider from "@/components/theme-provider";
+import { Suspense } from "react";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -41,7 +42,9 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
+          <Suspense fallback={<div className="h-20" />}>
           <Header />
+          </Suspense>
           {children}
           <Footer />
           <Toaster position="top-right" richColors />
