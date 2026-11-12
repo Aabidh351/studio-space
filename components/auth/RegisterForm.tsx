@@ -40,64 +40,105 @@ export default function RegisterForm() {
   const [googleLoading, setGoogleLoading] = useState(false);
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError("");
+  e.preventDefault();
+  setError("");
 
-    if (
-      password.length < 6 ||
-      !/[A-Z]/.test(password) ||
-      !/[a-z]/.test(password)
-    ) {
-      setError(
-        "Password must contain uppercase and lowercase letters and at least 6 characters."
-      );
-      return;
-    }
+  if (
+    password.length < 6 ||
+    !/[A-Z]/.test(password) ||
+    !/[a-z]/.test(password)
+  ) {
+    const message =
+      "Password must contain uppercase and lowercase letters and at least 6 characters.";
 
-    if (password !== confirmPassword) {
-      setError("Passwords do not match.");
-      return;
-    }
+    setError(message);
+    toast.error("Invalid Password", { description: message });
+    return;
+  }
 
-    setLoading(true);
+  if (password !== confirmPassword) {
+    const message = "Passwords do not match.";
 
-    try {
-      const { error } = await authClient.signUp.email({
-        name,
-        email,
-        password,
-        image,
+    setError(message);
+    toast.error("Password Mismatch", { description: message });
+    return;
+  }
+
+  setLoading(true);
+
+  try {
+    const { error } = await authClient.signUp.email({
+      name,
+      email,
+      password,
+      image,
+    });
+
+    if (error) {
+      const message = error.message || "Registration failed.";
+
+      toast.error("Registration Failed", {
+        description: message,
       });
 
-      if (error) {
-        toast.error("Registration Failed!")
-        setError(error.message || "Registration failed.");
-        return;
-      }
-      toast.success("You were successfully registered!")
-      router.push("/");
-      router.refresh();
-    } catch {
-      setError("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
+      setError(message);
+      return;
     }
-  };
+
+    toast.success("You were successfully registered!");
+
+    router.push("/");
+    router.refresh();
+  } catch (error) {
+    const message =
+      error instanceof Error
+        ? error.message
+        : "Something went wrong. Please try again.";
+
+    toast.error("Registration Failed", {
+      description: message,
+    });
+
+    setError(message);
+  } finally {
+    setLoading(false);
+  }
+};
 
   const handleGoogleSignup = async () => {
-    setError("");
-    setGoogleLoading(true);
+  setError("");
+  setGoogleLoading(true);
 
-    try {
-      await authClient.signIn.social({
-        provider: "google",
-        callbackURL: "/",
+  try {
+    const { error } = await authClient.signIn.social({
+      provider: "google",
+      callbackURL: "/",
+    });
+
+    if (error) {
+      const message = error.message || "Google sign up failed.";
+
+      toast.error("Google Sign Up Failed", {
+        description: message,
       });
-    } catch {
-      setError("Google sign up failed. Please try again.");
+
+      setError(message);
       setGoogleLoading(false);
     }
-  };
+  } catch (error) {
+    const message =
+      error instanceof Error
+        ? error.message
+        : "Google sign up failed. Please try again.";
+
+    toast.error("Google Sign Up Failed", {
+      description: message,
+    });
+
+    setError(message);
+    setGoogleLoading(false);
+  }
+};
 
   return (
     <div className="w-full max-w-md border border-[#e4e1d7] bg-[#fdfcf9] p-8">

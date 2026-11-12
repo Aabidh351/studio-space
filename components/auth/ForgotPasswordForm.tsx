@@ -17,31 +17,52 @@ export default function ForgotPasswordForm() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    setError("");
-    setMessage("");
-    setLoading(true);
+  setError("");
+  setMessage("");
+  setLoading(true);
 
-    try {
-      const { error } = await authClient.requestPasswordReset({
-        email,
-        redirectTo: "/reset-password",
+  try {
+    const { error } = await authClient.requestPasswordReset({
+      email,
+      redirectTo: "/reset-password",
+    });
+
+    if (error) {
+      const errorMessage =
+        error.message || "Unable to send reset link.";
+
+      toast.error("Password Reset Link Failed", {
+        description: errorMessage,
       });
 
-      if (error) {
-        toast.error("Unable to send reset link!")
-        setError(error.message || "Unable to send reset link.");
-        return;
-      }
-      toast.success("A reset link will be sent to your email.")
-      setMessage("If an account exists with this email, a reset link will be sent.");
-    } catch {
-      setError("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
+      setError(errorMessage);
+      return;
     }
-  };
+
+    toast.success("Password reset link requested!", {
+      description: "Check your email for further instructions.",
+    });
+
+    setMessage(
+      "If an account exists with this email, a reset link will be sent."
+    );
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error
+        ? error.message
+        : "Something went wrong. Please try again.";
+
+    toast.error("Something Went Wrong", {
+      description: errorMessage,
+    });
+
+    setError(errorMessage);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="w-full max-w-md border border-[#e4e1d7] bg-[#fdfcf9] p-8">

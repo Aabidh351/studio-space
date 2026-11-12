@@ -24,47 +24,68 @@ export default function ResetPasswordForm({ token }: { token: string }) {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError("");
+  e.preventDefault();
+  setError("");
 
-    if (
-      password.length < 6 ||
-      !/[A-Z]/.test(password) ||
-      !/[a-z]/.test(password)
-    ) {
-      setError(
-        "Password must contain uppercase and lowercase letters and at least 6 characters."
-      );
-      return;
-    }
+  if (
+    password.length < 6 ||
+    !/[A-Z]/.test(password) ||
+    !/[a-z]/.test(password)
+  ) {
+    const message =
+      "Password must contain uppercase and lowercase letters and at least 6 characters.";
 
-    if (password !== confirmPassword) {
-      setError("Passwords do not match.");
-      return;
-    }
+    setError(message);
+    toast.error("Invalid Password", { description: message });
+    return;
+  }
 
-    setLoading(true);
+  if (password !== confirmPassword) {
+    const message = "Passwords do not match.";
 
-    try {
-      const { error } = await authClient.resetPassword({
-        newPassword: password,
-        token,
+    setError(message);
+    toast.error("Password Mismatch", { description: message });
+    return;
+  }
+
+  setLoading(true);
+
+  try {
+    const { error } = await authClient.resetPassword({
+      newPassword: password,
+      token,
+    });
+
+    if (error) {
+      const message = error.message || "Unable to reset password.";
+
+      toast.error("Password Reset Failed", {
+        description: message,
       });
 
-      if (error) {
-        toast.error("Password could not reset!");
-        setError(error.message || "Unable to reset password.");
-        return;
-      }
-      toast.success("Your password was successfully reset.")
-      router.push("/login");
-      router.refresh();
-    } catch {
-      setError("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
+      setError(message);
+      return;
     }
-  };
+
+    toast.success("Your password was successfully reset.");
+
+    router.push("/login");
+    router.refresh();
+  } catch (error) {
+    const message =
+      error instanceof Error
+        ? error.message
+        : "Something went wrong. Please try again.";
+
+    toast.error("Password Reset Failed", {
+      description: message,
+    });
+
+    setError(message);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="w-full max-w-md border border-[#e4e1d7] bg-[#fdfcf9] p-8">

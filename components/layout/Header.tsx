@@ -59,26 +59,35 @@ export default function Header() {
 );
 
   const handleLogout = async () => {
+  try {
     setLoggingOut(true);
 
-    try {
-      await authClient.signOut({
-        fetchOptions: {
-          onSuccess: () => {
-            router.push("/login");
-            router.refresh();
-          },
-          onError: (context) => {
-            console.error("Logout failed:", context.error);
-            setLoggingOut(false);
-          },
-        },
+    const { error } = await authClient.signOut();
+
+    if (error) {
+      toast.error("Logout Failed", {
+        description: error.message || "Please try again.",
       });
-    } catch (error) {
-      console.error("Logout failed:", error);
-      setLoggingOut(false);
+      return;
     }
-  };
+
+    toast.success("Logged out successfully!");
+
+    router.push("/login");
+    router.refresh();
+  } catch (error) {
+    const message =
+      error instanceof Error
+        ? error.message
+        : "Something went wrong while logging out.";
+
+    toast.error("Logout Failed", {
+      description: message,
+    });
+  } finally {
+    setLoggingOut(false);
+  }
+};
 
   const profilePicture = (
     <Avatar className="h-10 w-10 border border-border">
@@ -181,14 +190,7 @@ export default function Header() {
           ))}
         </div>
 
-        {/* toast test */}
-        <button
-  type="button"
-  onClick={() => toast.success("StudioSpace notifications are working!")}
-  className="rounded-md bg-primary px-4 py-2 text-primary-foreground"
->
-  Test Toast
-</button>
+        
 
         <div className="hidden items-center gap-4 md:flex">
           {themeToggle}

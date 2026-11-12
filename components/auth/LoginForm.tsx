@@ -38,45 +38,69 @@ export default function LoginForm({
   const [googleLoading, setGoogleLoading] = useState(false);
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
+  e.preventDefault();
+  setError("");
+  setLoading(true);
 
-    try {
-      const { error } = await authClient.signIn.email({
-        email,
-        password,
+  try {
+    const { error } = await authClient.signIn.email({
+      email,
+      password,
+    });
+
+    if (error) {
+      const message = error.message || "Invalid email or password.";
+
+      toast.error("Login Failed", {
+        description: message,
       });
 
-      if (error) {
-        toast.error("Login Failed!")
-        setError(error.message || "Invalid email or password.");
-        return;
-      }
-      toast.success("Welcome Back!")
-      router.push(redirectTo);
-      router.refresh();
-    } catch {
-      setError("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
+      setError(message);
+      return;
     }
-  };
+
+    toast.success("Welcome Back!");
+    router.push(redirectTo);
+    router.refresh();
+  } catch (error) {
+    const message =
+      error instanceof Error
+        ? error.message
+        : "Something went wrong. Please try again.";
+
+    toast.error("Login Failed", {
+      description: message,
+    });
+
+    setError(message);
+  } finally {
+    setLoading(false);
+  }
+};
 
   const handleGoogleLogin = async () => {
-    setError("");
-    setGoogleLoading(true);
+  setError("");
+  setGoogleLoading(true);
 
-    try {
-      await authClient.signIn.social({
-        provider: "google",
-        callbackURL: redirectTo,
-      });
-    } catch {
-      setError("Google login failed. Please try again.");
-      setGoogleLoading(false);
-    }
-  };
+  try {
+    await authClient.signIn.social({
+      provider: "google",
+      callbackURL: redirectTo,
+    });
+  } catch (error) {
+    const message =
+      error instanceof Error
+        ? error.message
+        : "Google login failed. Please try again.";
+
+    toast.error("Google Login Failed", {
+      description: message,
+    });
+
+    setError(message);
+    setGoogleLoading(false);
+  }
+};
 
   return (
     <div className="w-full max-w-md border border-[#e4e1d7] bg-[#fdfcf9] p-8">
