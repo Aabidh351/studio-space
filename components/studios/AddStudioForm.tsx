@@ -96,22 +96,22 @@ export default function AddStudioForm({ categories }: Props) {
   };
 
   if (isPending) {
-    return <p className="text-sm text-[#74766d]">Loading your information...</p>;
+    return <p className="text-sm text-muted-foreground">Loading your information...</p>;
   }
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-7 border border-[#e4e1d7] bg-[#fdfcf9] p-6 md:p-8"
+      className="space-y-7 border border-border bg-card p-6 md:p-8"
     >
       <div>
-        <h2 className="mb-5 text-lg font-semibold text-[#292b27]">
+        <h2 className="mb-5 text-lg font-semibold text-foreground">
           Studio Information
         </h2>
 
         <div className="space-y-5">
           <div>
-            <label className="mb-2 block text-sm font-medium text-[#292b27]">
+            <label className="mb-2 block text-sm font-medium text-foreground">
               Studio Title
             </label>
             <Input
@@ -123,14 +123,14 @@ export default function AddStudioForm({ categories }: Props) {
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-medium text-[#292b27]">
+            <label className="mb-2 block text-sm font-medium text-foreground">
               Category
             </label>
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               required
-              className="h-10 w-full rounded-md border border-input bg-transparent px-3 text-sm text-[#292b27] outline-none focus:ring-2 focus:ring-[#71836d]"
+              className="h-10 w-full rounded-md border border-input bg-transparent px-3 text-sm text-foreground outline-none focus:ring-2 focus:ring-[#71836d]"
             >
               <option value="">Select a category</option>
               {categories.map((item) => (
@@ -149,7 +149,7 @@ export default function AddStudioForm({ categories }: Props) {
 
           <div className="grid gap-5 sm:grid-cols-2">
             <div>
-              <label className="mb-2 block text-sm font-medium text-[#292b27]">
+              <label className="mb-2 block text-sm font-medium text-foreground">
                 Hourly Rate (BDT)
               </label>
               <Input
@@ -163,7 +163,7 @@ export default function AddStudioForm({ categories }: Props) {
             </div>
 
             <div>
-              <label className="mb-2 block text-sm font-medium text-[#292b27]">
+              <label className="mb-2 block text-sm font-medium text-foreground">
                 Security Deposit (BDT)
               </label>
               <Input
@@ -177,7 +177,7 @@ export default function AddStudioForm({ categories }: Props) {
             </div>
 
             <div>
-              <label className="mb-2 block text-sm font-medium text-[#292b27]">
+              <label className="mb-2 block text-sm font-medium text-foreground">
                 Maximum Capacity
               </label>
               <Input
@@ -191,7 +191,7 @@ export default function AddStudioForm({ categories }: Props) {
             </div>
 
             <div>
-              <label className="mb-2 block text-sm font-medium text-[#292b27]">
+              <label className="mb-2 block text-sm font-medium text-foreground">
                 Location
               </label>
               <Input
@@ -204,7 +204,7 @@ export default function AddStudioForm({ categories }: Props) {
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-medium text-[#292b27]">
+            <label className="mb-2 block text-sm font-medium text-foreground">
               Image URL
             </label>
             <Input
@@ -217,7 +217,7 @@ export default function AddStudioForm({ categories }: Props) {
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-medium text-[#292b27]">
+            <label className="mb-2 block text-sm font-medium text-foreground">
               Amenities
             </label>
             <Input
@@ -232,7 +232,7 @@ export default function AddStudioForm({ categories }: Props) {
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-medium text-[#292b27]">
+            <label className="mb-2 block text-sm font-medium text-foreground">
               Studio Overview
             </label>
             <Textarea
@@ -247,20 +247,20 @@ export default function AddStudioForm({ categories }: Props) {
       </div>
 
       <div className="border-t border-[#e4e1d7] pt-6">
-        <h2 className="mb-4 text-lg font-semibold text-[#292b27]">
+        <h2 className="mb-4 text-lg font-semibold text-foreground">
           Host Information
         </h2>
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label className="mb-2 block text-sm font-medium text-[#292b27]">
+            <label className="mb-2 block text-sm font-medium text-foreground">
               Host Name
             </label>
             <Input value={user?.name || ""} readOnly />
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-medium text-[#292b27]">
+            <label className="mb-2 block text-sm font-medium text-foreground">
               Host Email
             </label>
             <Input value={user?.email || ""} readOnly />
@@ -271,7 +271,7 @@ export default function AddStudioForm({ categories }: Props) {
       <Button
         type="submit"
         disabled={loading || !user || categories.length === 0}
-        className="w-full bg-[#344638] text-white hover:bg-[#29392d]"
+        className="w-full bg-[#344638] text-white hover:bg-foreground"
       >
         {loading ? "Publishing..." : "Publish Studio"}
       </Button>

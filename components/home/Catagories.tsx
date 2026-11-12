@@ -31,7 +31,7 @@ export default async function Categories() {
   const categories = await getCategories();
 
   return (
-    <section className="bg-[#f7f5ef] px-6 py-20 md:px-12 lg:px-20">
+    <section className="bg-background px-6 py-20 md:px-12 lg:px-20">
       <div className="mx-auto max-w-7xl">
         <div className="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
@@ -39,25 +39,25 @@ export default async function Categories() {
               Find Your Space
             </p>
 
-            <h2 className="font-heading text-4xl font-medium text-[#292b27] md:text-5xl">
+            <h2 className="font-heading text-4xl font-medium text-foreground md:text-5xl">
               Explore by Category
             </h2>
 
-            <p className="mt-3 max-w-xl text-sm leading-7 text-[#74766d]">
+            <p className="mt-3 max-w-xl text-sm leading-7 text-muted-foreground">
               Discover the perfect creative environment for your next project.
             </p>
           </div>
 
           <Link
             href="/studios"
-            className="text-sm font-semibold text-[#344638] underline underline-offset-4"
+            className="text-sm font-semibold text-primary underline underline-offset-4"
           >
             Browse studios by catagory
           </Link>
         </div>
 
         {categories.length === 0 ? (
-          <p className="py-12 text-center text-[#74766d]">
+          <p className="py-12 text-center text-muted-foreground">
             No categories available right now.
           </p>
         ) : (

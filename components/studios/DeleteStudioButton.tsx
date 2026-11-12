@@ -57,7 +57,7 @@ export default function DeleteStudioButton({
       type="button"
       onClick={handleDelete}
       disabled={loading}
-      className="rounded-full border border-red-200 px-4 py-2 text-sm font-medium text-red-600 transition hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-50"
+      className="rounded-full border border-border px-4 py-2 text-sm font-medium text-red-600 transition hover:bg-background disabled:cursor-not-allowed disabled:opacity-50"
     >
       {loading ? "Deleting..." : "Delete"}
     </button>

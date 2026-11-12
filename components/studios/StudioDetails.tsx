@@ -43,18 +43,18 @@ export default async function StudioDetails({ id }: { id: string }) {
 
   if (!studio) {
     return (
-      <section className="flex min-h-[60vh] flex-col items-center justify-center bg-[#f7f5ef] px-6 text-center">
-        <h1 className="font-heading text-4xl text-[#292b27]">
+      <section className="flex min-h-[60vh] flex-col items-center justify-center bg-background px-6 text-center">
+        <h1 className="font-heading text-4xl text-foreground">
           Studio Not Found
         </h1>
 
-        <p className="mt-3 text-sm text-[#74766d]">
+        <p className="mt-3 text-sm text-muted-foreground">
           This studio may have been removed or is no longer available.
         </p>
 
         <Link
           href="/studios"
-          className="mt-6 bg-[#344638] px-6 py-3 text-sm font-medium text-white"
+          className="mt-6 bg-primary px-6 py-3 text-sm font-medium text-white"
         >
           Explore Studios
         </Link>
@@ -63,11 +63,11 @@ export default async function StudioDetails({ id }: { id: string }) {
   }
 
   return (
-    <section className="min-h-screen bg-[#f7f5ef] px-6 py-12 md:px-12 lg:px-20">
+    <section className="min-h-screen bg-background px-6 py-12 md:px-12 lg:px-20">
       <div className="mx-auto max-w-7xl">
         <Link
           href="/studios"
-          className="mb-8 inline-block text-sm text-[#74766d] hover:text-[#344638]"
+          className="mb-8 inline-block text-sm text-muted-foreground hover:text-[#344638]"
         >
           ← Back to Studios
         </Link>
@@ -80,6 +80,7 @@ export default async function StudioDetails({ id }: { id: string }) {
               alt={studio.title}
               fill
               priority
+              loading="eager"
               unoptimized
               className="object-cover"
             />
@@ -93,27 +94,27 @@ export default async function StudioDetails({ id }: { id: string }) {
               {studio.category}
             </p>
 
-            <h1 className="font-heading text-4xl font-medium text-[#292b27] md:text-5xl">
+            <h1 className="font-heading text-4xl font-medium text-foreground md:text-5xl">
               {studio.title}
             </h1>
 
-            <p className="mt-4 text-sm text-[#74766d]">
+            <p className="mt-4 text-sm text-muted-foreground">
               {studio.location}
             </p>
 
             {/* Overview */}
-            <div className="my-8 border-y border-[#e4e1d7] py-6">
-              <h2 className="mb-4 font-heading text-2xl font-semibold text-[#292b27]">
+            <div className="my-8 border-y border-border py-6">
+              <h2 className="mb-4 font-heading text-2xl font-semibold text-foreground">
                 About This Space
               </h2>
 
-              <p className="whitespace-pre-line text-sm leading-8 text-[#74766d]">
+              <p className="whitespace-pre-line text-sm leading-8 text-muted-foreground">
                 {studio.overview}
               </p>
             </div>
 
             <div>
-              <h2 className="mb-5 font-heading text-2xl font-semibold text-[#292b27]">
+              <h2 className="mb-5 font-heading text-2xl font-semibold text-foreground">
                 Amenities & Facilities
               </h2>
 
@@ -129,49 +130,49 @@ export default async function StudioDetails({ id }: { id: string }) {
                   ))}
                 </div>
               ) : (
-                <p className="text-sm text-[#74766d]">
+                <p className="text-sm text-muted-foreground">
                   No amenities listed.
                 </p>
               )}
             </div>
 
-            <div className="mt-10 border-t border-[#e4e1d7] pt-8">
+            <div className="mt-10 border-t border-border pt-8">
               <h2 className="mb-4 font-heading text-2xl font-semibold text-[#292b27]">
                 Hosted By
               </h2>
 
-              <p className="text-base font-semibold text-[#292b27]">
+              <p className="text-base font-semibold text-foreground">
                 {studio.ownerName}
               </p>
 
-              <p className="mt-1 text-sm text-[#74766d]">
+              <p className="mt-1 text-sm text-muted-foreground">
                 {studio.ownerEmail}
               </p>
             </div>
           </div>
 
           <aside>
-            <div className="sticky top-8 border border-[#e4e1d7] bg-[#fdfcf9] p-6">
-              <p className="text-sm text-[#74766d]">Hourly rate</p>
+            <div className="sticky top-8 border border-[#e4e1d7] bg-card p-6">
+              <p className="text-sm text-muted-foreground">Hourly rate</p>
 
-              <p className="mt-1 font-heading text-4xl font-semibold text-[#344638]">
+              <p className="mt-1 font-heading text-4xl font-semibold text-primary">
                 ৳{studio.hourlyRate.toLocaleString("en-BD")}
-                <span className="font-sans text-sm font-normal text-[#74766d]">
+                <span className="font-sans text-sm font-normal text-muted-foreground">
                   {" "}/ hour
                 </span>
               </p>
 
-              <div className="my-6 space-y-4 border-y border-[#e4e1d7] py-5">
+              <div className="my-6 space-y-4 border-y border-border py-5">
                 <div className="flex justify-between text-sm">
-                  <span className="text-[#74766d]">Security Deposit</span>
-                  <span className="font-semibold text-[#292b27]">
+                  <span className="text-muted-foreground">Security Deposit</span>
+                  <span className="font-semibold text-foreground">
                     ৳{studio.securityDeposit.toLocaleString("en-BD")}
                   </span>
                 </div>
 
                 <div className="flex justify-between text-sm">
-                  <span className="text-[#74766d]">Maximum Capacity</span>
-                  <span className="font-semibold text-[#292b27]">
+                  <span className="text-muted-foreground">Maximum Capacity</span>
+                  <span className="font-semibold text-foreground">
                     {studio.maxCapacity} people
                   </span>
                 </div>
@@ -186,7 +187,7 @@ export default async function StudioDetails({ id }: { id: string }) {
                 ownerEmail: studio.ownerEmail,
                 }} />
 
-              <p className="mt-4 text-center text-xs leading-5 text-[#74766d]">
+              <p className="mt-4 text-center text-xs leading-5 text-muted-foreground">
                 Booking requests are subject to host confirmation.
               </p>
             </div>

@@ -41,7 +41,7 @@ export default async function MyListingsPage() {
   const studios = await getMyStudios(session.user.email);
 
   return (
-    <main className="min-h-screen bg-[#f7f5ef] px-5 py-16">
+    <main className="min-h-screen bg-background px-5 py-16">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-wrap items-center justify-between gap-5">
           <div>
@@ -49,36 +49,36 @@ export default async function MyListingsPage() {
               Host Dashboard
             </p>
 
-            <h1 className="mt-2 font-heading text-4xl font-semibold text-[#292b27]">
+            <h1 className="mt-2 font-heading text-4xl font-semibold text-foreground">
               My Listings
             </h1>
 
-            <p className="mt-3 text-[#74766d]">
-              Manage the creative spaces you've listed.
+            <p className="mt-3 text-muted-foreground">
+              Manage the creative spaces you&apos;ve listed.
             </p>
           </div>
 
           <Link
             href="/add-studio"
-            className="rounded-full bg-[#344638] px-6 py-3 text-sm font-medium text-white transition hover:bg-[#29392d]"
+            className="rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition hover:bg-foreground"
           >
             + Add New Studio
           </Link>
         </div>
 
         {studios.length === 0 ? (
-          <div className="mt-12 border border-[#e4e1d7] bg-[#fdfcf9] px-6 py-16 text-center">
-            <h2 className="text-xl font-semibold text-[#292b27]">
+          <div className="mt-12 border border-[#e4e1d7] bg-card px-6 py-16 text-center">
+            <h2 className="text-xl font-semibold text-foreground">
               No listings yet
             </h2>
 
-            <p className="mt-2 text-sm text-[#74766d]">
+            <p className="mt-2 text-sm text-muted-foreground">
               You haven&apos;t listed any studios yet.
             </p>
 
             <Link
               href="/add-studio"
-              className="mt-6 inline-block rounded-full bg-[#344638] px-6 py-3 text-sm font-medium text-white"
+              className="mt-6 inline-block rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground"
             >
               List Your First Studio
             </Link>
@@ -88,36 +88,36 @@ export default async function MyListingsPage() {
             {studios.map((studio) => (
               <div
                 key={studio._id}
-                className="border border-[#e4e1d7] bg-[#fdfcf9] p-6"
+                className="border border-border bg-card p-6"
               >
                 <p className="text-xs font-semibold uppercase tracking-wider text-[#b66b50]">
                   {studio.category}
                 </p>
 
-                <h2 className="mt-3 text-xl font-semibold text-[#292b27]">
+                <h2 className="mt-3 text-xl font-semibold text-foreground">
                   {studio.title}
                 </h2>
 
-                <p className="mt-2 text-sm text-[#74766d]">
+                <p className="mt-2 text-sm text-muted-foreground">
                   {studio.location}
                 </p>
 
-                <p className="mt-5 font-semibold text-[#344638]">
+                <p className="mt-5 font-semibold text-primary">
                   ৳{studio.hourlyRate}
-                  <span className="text-sm font-normal text-[#74766d]">
+                  <span className="text-sm font-normal text-muted-foreground">
                     {" "} / hour
                   </span>
                 </p>
 
-                <div className="mt-6 flex items-center justify-between border-t border-[#e4e1d7] pt-4">
+                <div className="mt-6 flex items-center justify-between border-t border-border pt-4">
                   <Link href={`/studios/${studio._id}`}
-                  className="text-sm font-semibold text-[#344638] hover:text-[#b66b50]">
+                  className="text-sm font-semibold text-primary hover:text-[#b66b50]">
                     View Studio →</Link>
                     
                     <div className="flex items-center gap-4">
                       <Link
                       href={`/studios/edit/${studio._id}`}
-                      className="text-sm font-semibold text-[#b66b50] hover:text-[#344638]" >
+                      className="text-sm font-semibold text-[#b66b50] hover:text-primary" >
                         Edit
                         </Link>
                         <DeleteStudioButton

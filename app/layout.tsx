@@ -5,6 +5,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Toaster } from "@/components/ui/sonner";
+import ThemeProvider from "@/components/theme-provider";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -30,14 +31,22 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${cormorant.className} ${dmSans.className} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        <Header />
-        {children}
-        <Footer/>
-        <Toaster position="top-right" richColors />
-        </body>
+      <body className="flex min-h-full flex-col">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
+          <Header />
+          {children}
+          <Footer />
+          <Toaster position="top-right" richColors />
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

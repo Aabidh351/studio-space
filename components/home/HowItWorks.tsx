@@ -29,7 +29,7 @@ export default async function HowItWorks() {
   return (
     <section
       id="how-it-works"
-      className="bg-[#efeee8] px-6 py-20 md:px-12 lg:px-20"
+      className="bg-[#efeee8] dark:bg-[#292e28] px-6 py-20 md:px-12 lg:px-20"
     >
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto mb-14 max-w-2xl text-center">
@@ -37,18 +37,18 @@ export default async function HowItWorks() {
             Simple Process
           </p>
 
-          <h2 className="font-heading text-4xl font-medium text-[#292b27] md:text-5xl">
+          <h2 className="font-heading text-4xl font-medium text-foreground md:text-5xl">
             How It Works
           </h2>
 
-          <p className="mt-4 text-sm leading-7 text-[#74766d]">
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">
             Finding and booking your ideal creative space is easier than you
             think.
           </p>
         </div>
 
         {steps.length === 0 ? (
-          <p className="py-12 text-center text-[#74766d]">
+          <p className="py-12 text-center text-muted-foreground">
             Steps are currently unavailable.
           </p>
         ) : (
@@ -59,11 +59,11 @@ export default async function HowItWorks() {
                   {String(step.number).padStart(2, "0")}
                 </p>
 
-                <h3 className="mb-3 font-heading text-2xl font-semibold text-[#292b27]">
+                <h3 className="mb-3 font-heading text-2xl font-semibold text-foreground">
                   {step.title}
                 </h3>
 
-                <p className="text-sm leading-7 text-[#74766d]">
+                <p className="text-sm leading-7 text-muted-foreground">
                   {step.description}
                 </p>
               </div>

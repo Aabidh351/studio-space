@@ -33,7 +33,7 @@ export default async function FeaturedStudios() {
   const studios = await getFeaturedStudios();
 
   return (
-    <section className="bg-[#f7f5ef] px-5 py-20 md:px-10 lg:px-16">
+    <section className="bg-background px-5 py-20 md:px-10 lg:px-16">
       <div className="mx-auto max-w-7xl">
 
         <div className="mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
@@ -42,25 +42,25 @@ export default async function FeaturedStudios() {
               Curated spaces
             </p>
 
-            <h2 className="text-4xl font-semibold text-[#292b27] md:text-5xl">
+            <h2 className="text-4xl font-semibold text-foreground md:text-5xl">
               Featured Studios
             </h2>
 
-            <p className="mt-3 max-w-lg text-sm text-[#74766d] md:text-base">
+            <p className="mt-3 max-w-lg text-sm text-muted-foreground md:text-base">
               Discover inspiring spaces designed to bring your creative ideas to life.
             </p>
           </div>
 
           <Link
             href="/studios"
-            className="text-sm font-semibold text-[#344638] underline underline-offset-4"
+            className="text-sm font-semibold text-primary underline underline-offset-4"
           >
             Explore all studios
           </Link>
         </div>
 
         {studios.length === 0 ? (
-          <p className="py-12 text-center text-[#74766d]">
+          <p className="py-12 text-center text-muted-foreground">
             No studios available right now.
           </p>
         ) : (
@@ -69,7 +69,7 @@ export default async function FeaturedStudios() {
               <Link
                 href={`/studios/${studio._id}`}
                 key={studio._id}
-                className="group overflow-hidden rounded-xl border border-[#e4e1d7] bg-[#fdfcf9] transition hover:-translate-y-1 hover:shadow-lg"
+                className="group overflow-hidden rounded-xl border border-border bg-card transition hover:-translate-y-1 hover:shadow-lg"
               >
                 <div className="relative h-60 overflow-hidden">
                   <Image
@@ -87,21 +87,21 @@ export default async function FeaturedStudios() {
                     {studio.category}
                   </p>
 
-                  <h3 className=" text-2xl font-semibold text-[#292b27]">
+                  <h3 className=" text-2xl font-semibold text-foreground">
                     {studio.title}
                   </h3>
 
-                  <p className="mt-2 text-sm text-[#74766d]">
+                  <p className="mt-2 text-sm text-muted-foreground">
                     {studio.location}
                   </p>
 
-                  <div className="mt-5 flex items-center justify-between border-t border-[#e4e1d7] pt-4">
-                    <p className="text-sm font-semibold text-[#344638]">
+                  <div className="mt-5 flex items-center justify-between border-t border-border pt-4">
+                    <p className="text-sm font-semibold text-primary">
                       ৳{studio.hourlyRate}
-                      <span className="font-normal text-[#74766d]"> / hour</span>
+                      <span className="font-normal text-muted-foreground"> / hour</span>
                     </p>
 
-                    <span className="text-sm font-semibold text-[#344638]">
+                    <span className="text-sm font-semibold text-primary">
                       View details →
                     </span>
                   </div>

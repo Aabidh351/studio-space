@@ -49,37 +49,37 @@ export default async function BookingRequestsPage() {
   const bookings = await getBookingRequests(session.user.email);
 
   return (
-    <main className="min-h-screen bg-[#f7f5ef] px-5 py-16">
+    <main className="min-h-screen bg-background px-5 py-16">
       <div className="mx-auto max-w-5xl">
         <div className="mb-10">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#b66b50]">
             Host Dashboard
           </p>
 
-          <h1 className="mt-3 font-heading text-4xl font-semibold text-[#292b27]">
+          <h1 className="mt-3 font-heading text-4xl font-semibold text-foreground">
             Booking Requests
           </h1>
 
-          <p className="mt-3 text-sm text-[#74766d]">
+          <p className="mt-3 text-sm text-muted-foreground">
             Review booking requests for your studios.
           </p>
         </div>
 
         {bookings.length === 0 ? (
-          <div className="rounded-xl border border-[#e4e1d7] bg-[#fdfcf9] px-6 py-16 text-center">
+          <div className="rounded-xl border border-border bg-card px-6 py-16 text-center">
             <CalendarDays className="mx-auto h-10 w-10 text-[#a09e93]" />
 
             <h2 className="mt-5 font-heading text-2xl font-semibold text-[#292b27]">
               No booking requests yet
             </h2>
 
-            <p className="mt-2 text-sm text-[#74766d]">
+            <p className="mt-2 text-sm text-muted-foreground">
               New requests for your studios will appear here.
             </p>
 
             <Link
               href="/my-listings"
-              className="mt-6 inline-block rounded-full bg-[#344638] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#435947]"
+              className="mt-6 inline-block rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#435947]"
             >
               My Listings
             </Link>
@@ -89,15 +89,15 @@ export default async function BookingRequestsPage() {
             {bookings.map((booking) => (
               <div
                 key={booking._id}
-                className="rounded-xl border border-[#e4e1d7] bg-[#fdfcf9] p-6"
+                className="rounded-xl border border-border bg-card p-6"
               >
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div>
-                    <h2 className="font-heading text-2xl font-semibold text-[#292b27]">
+                    <h2 className="font-heading text-2xl font-semibold text-foreground">
                       {booking.studioTitle}
                     </h2>
 
-                    <p className="mt-2 text-xs text-[#74766d]">
+                    <p className="mt-2 text-xs text-muted-foreground">
                       Booking ID: {booking._id}
                     </p>
                   </div>
@@ -120,10 +120,10 @@ export default async function BookingRequestsPage() {
                     <UserRound className="h-5 w-5 text-[#b66b50]" />
                     <div>
                       <p className="text-xs text-[#74766d]">Customer</p>
-                      <p className="mt-1 text-sm font-medium text-[#292b27]">
+                      <p className="mt-1 text-sm font-medium text-foreground">
                         {booking.customerName}
                       </p>
-                      <p className="text-xs text-[#74766d]">
+                      <p className="text-xs text-muted-foreground">
                         {booking.customerEmail}
                       </p>
                     </div>
@@ -132,8 +132,8 @@ export default async function BookingRequestsPage() {
                   <div className="flex items-center gap-3">
                     <CalendarDays className="h-5 w-5 text-[#b66b50]" />
                     <div>
-                      <p className="text-xs text-[#74766d]">Booking Date</p>
-                      <p className="mt-1 text-sm font-medium text-[#292b27]">
+                      <p className="text-xs text-muted-foreground">Booking Date</p>
+                      <p className="mt-1 text-sm font-medium text-foreground">
                         {new Date(
                           `${booking.bookingDate}T00:00:00`
                         ).toLocaleDateString("en-BD", {
@@ -149,7 +149,7 @@ export default async function BookingRequestsPage() {
                     <Clock3 className="h-5 w-5 text-[#b66b50]" />
                     <div>
                       <p className="text-xs text-[#74766d]">Booking Time</p>
-                      <p className="mt-1 text-sm font-medium text-[#292b27]">
+                      <p className="mt-1 text-sm font-medium text-foreground">
                         {booking.startTime} – {booking.endTime} (
                         {booking.duration} hours)
                       </p>
@@ -157,20 +157,20 @@ export default async function BookingRequestsPage() {
                   </div>
 
                   <div>
-                    <p className="text-xs text-[#74766d]">Estimated Total</p>
-                    <p className="mt-1 text-lg font-semibold text-[#344638]">
+                    <p className="text-xs text-muted-foreground">Estimated Total</p>
+                    <p className="mt-1 text-lg font-semibold text-primary">
                       ৳{booking.totalAmount.toLocaleString("en-BD")}
                     </p>
-                    <p className="mt-1 text-xs text-[#74766d]">
+                    <p className="mt-1 text-xs text-muted-foreground">
                       Security deposit: ৳
                       {booking.securityDeposit.toLocaleString("en-BD")}
                     </p>
                   </div>
                 </div>
 
-                <div className="mt-5 flex flex-wrap items-center justify-between gap-4 border-t border-[#e4e1d7] pt-5">
+                <div className="mt-5 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-5">
                     <Link href={`/studios/${booking.studioId}`} 
-                    className="text-sm font-semibold text-[#344638] transition hover:text-[#b66b50]" >
+                    className="text-sm font-semibold text-primary transition hover:text-[#b66b50]" >
                         View Studio →
                         </Link>
                         
