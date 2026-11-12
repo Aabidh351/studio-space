@@ -1,6 +1,5 @@
 import AddStudioForm from "@/components/studios/AddStudioForm";
 
-export const dynamic = "force-dynamic";
 
 type Category = {
   _id: string;
