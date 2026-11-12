@@ -81,7 +81,7 @@ export default function HostSupport() {
 
           <Link
             href="/add-studio"
-            className="mt-9 inline-flex items-center rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground transition hover:bg-[#26372a]"
+            className="mt-9 inline-flex items-center rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground transition hover:bg-[#26372a] hover:dark:bg-foreground"
           >
             Become a Host →
           </Link>

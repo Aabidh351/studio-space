@@ -1,4 +1,4 @@
-
+import { jwt } from "better-auth/plugins";
 import { betterAuth } from "better-auth/minimal";
 import { mongodbAdapter } from "@better-auth/mongo-adapter";
 import { MongoClient } from "mongodb";
@@ -11,7 +11,15 @@ const resend = new Resend(process.env.RESEND_API_KEY!);
 
 export const auth = betterAuth({
   database: mongodbAdapter(db),
+  plugins: [jwt({ sessionCookieCache: true })],
 
+  session: {
+    cookieCache: {
+      enabled: true,
+      maxAge: 5 * 60,
+      strategy: "jwt",
+    },
+  },
   emailAndPassword: {
     enabled: true,
 

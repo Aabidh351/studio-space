@@ -9,6 +9,7 @@ import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
 
 export default function ResetPasswordForm({ token }: { token: string }) {
   const router = useRouter();
@@ -51,10 +52,11 @@ export default function ResetPasswordForm({ token }: { token: string }) {
       });
 
       if (error) {
+        toast.error("Password could not reset!");
         setError(error.message || "Unable to reset password.");
         return;
       }
-
+      toast.success("Your password was successfully reset.")
       router.push("/login");
       router.refresh();
     } catch {

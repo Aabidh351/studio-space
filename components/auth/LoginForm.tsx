@@ -10,6 +10,7 @@ import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
 
 function GoogleIcon() {
   return (
@@ -48,10 +49,11 @@ export default function LoginForm({
       });
 
       if (error) {
+        toast.error("Login Failed!")
         setError(error.message || "Invalid email or password.");
         return;
       }
-
+      toast.success("Welcome Back!")
       router.push(redirectTo);
       router.refresh();
     } catch {

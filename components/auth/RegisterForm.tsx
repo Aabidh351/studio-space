@@ -10,6 +10,7 @@ import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
 
 function GoogleIcon() {
   return (
@@ -69,10 +70,11 @@ export default function RegisterForm() {
       });
 
       if (error) {
+        toast.error("Registration Failed!")
         setError(error.message || "Registration failed.");
         return;
       }
-
+      toast.success("You were successfully registered!")
       router.push("/");
       router.refresh();
     } catch {

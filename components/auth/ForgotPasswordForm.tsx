@@ -8,6 +8,7 @@ import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
 
 export default function ForgotPasswordForm() {
   const [email, setEmail] = useState("");
@@ -29,10 +30,11 @@ export default function ForgotPasswordForm() {
       });
 
       if (error) {
+        toast.error("Unable to send reset link!")
         setError(error.message || "Unable to send reset link.");
         return;
       }
-
+      toast.success("A reset link will be sent to your email.")
       setMessage("If an account exists with this email, a reset link will be sent.");
     } catch {
       setError("Something went wrong. Please try again.");

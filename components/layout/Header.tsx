@@ -24,6 +24,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
+import { toast } from "sonner";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -179,6 +180,15 @@ export default function Header() {
             </Link>
           ))}
         </div>
+
+        {/* toast test */}
+        <button
+  type="button"
+  onClick={() => toast.success("StudioSpace notifications are working!")}
+  className="rounded-md bg-primary px-4 py-2 text-primary-foreground"
+>
+  Test Toast
+</button>
 
         <div className="hidden items-center gap-4 md:flex">
           {themeToggle}
